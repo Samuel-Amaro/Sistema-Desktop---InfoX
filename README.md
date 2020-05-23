@@ -4,7 +4,7 @@ Projeto de criação de um sistema de emissão de ordem de serviços e emissão 
 que se trata de uma assistência técnica de microcomputadores e notebooks e periféricos, o gestor deseja obter controle dos serviços 
 da empresa.
 ## informações e Requisitos Do Sistema
- * 
+ * [Documentação](https://github.com/Samuel-Amaro/Sistema-Desktop---InfoX/tree/master/Documentacao/Levantamento-Requisistos)
 ### Tecnologias(Ferramentas Usadas)
  * Linguagem Java 
  * Banco Dados - MySQL
