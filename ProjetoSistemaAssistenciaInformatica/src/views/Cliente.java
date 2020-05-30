@@ -6,8 +6,6 @@ import javax.swing.JOptionPane;
 //importando a API(biblioteca) rs2xml.jar para ajudar, a fazer uma maneira de pesquisa avançada, para poder obter clientes, cadastrados de uma maneira mais rapida. e eficiente. utilizando uma API externa.
 import net.proteanit.sql.DbUtils;
 
-
-
 public class Cliente extends javax.swing.JInternalFrame {
 
     //variaveis essenciais
@@ -46,6 +44,7 @@ public class Cliente extends javax.swing.JInternalFrame {
                 if (adicionado > 0) {
                     JOptionPane.showMessageDialog(null, "Cliente Inserido Com Sucesso", "Tudo Ok!", JOptionPane.YES_OPTION);
                     //e se deu tudo certo, limpa todos os campos prenchidos no frame
+                    txtIdCliente.setText(null);
                     txtNomeCliente.setText(null);
                     txtRefEnderecoCliente.setText(null);
                     txtCepCliente.setText(null);
@@ -59,42 +58,152 @@ public class Cliente extends javax.swing.JInternalFrame {
                 }
             }
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Erro ao Acessar Banco, Ao inserir Clientes " + e);
+            JOptionPane.showMessageDialog(null, "Erro ao INSERT Banco, Ao inserir Clientes " + e);
         }
     }
-    
-    
+
     //metodo de buscar clientes, pelo nome, aplicando um filtro de busca
     private void buscarClientes() {
         //consulta sql, que vai buscar um cliente, pelo nome, aplicado o filtro de nome, isso e ele so fornece a primeira letra         do nome e vou trazer todos os nomes baseado so na primeira letra forncecida. nomes parecidos. ao informado.
-        String sql = "SELECT * FROM tbl_clientes WHERE nome LIKE ?;";  
+        String sql = "SELECT * FROM tbl_clientes WHERE nome LIKE ?;";
         try {
-             ps = conexao.prepareStatement(sql);
-             //setando o filtro na consulta + o operador '%'(que significa, busca os caracteres informados antes dele que no                 caso e o enterroga, e o resto de caracteres não informados que vierem não importa).
-             ps.setString(1,txtBuscaCliente.getText() + "%");
-             //executando a consulta
-             rs = ps.executeQuery();
-             //usando um recurso, da bibliioteca externa rs2xml.jar para prencher a tabela na janela, que vai mostrar os                     clientes encontrados, com o filtro aplicado.
-             tblMostraClientes.setModel(DbUtils.resultSetToTableModel(rs));
+            ps = conexao.prepareStatement(sql);
+            //setando o filtro na consulta + o operador '%'(que significa, busca os caracteres informados antes dele que no                 caso e o enterroga, e o resto de caracteres não informados que vierem não importa).
+            ps.setString(1, txtBuscaCliente.getText() + "%");
+            //executando a consulta
+            rs = ps.executeQuery();
+            //usando um recurso, da bibliioteca externa rs2xml.jar para prencher a tabela na janela, que vai mostrar os                     clientes encontrados, com o filtro aplicado.
+            tblMostraClientes.setModel(DbUtils.resultSetToTableModel(rs));
         } catch (SQLException e) {
-                JOptionPane.showMessageDialog(null,"Erro ao Buscar Clientes No BD" + e);
+            JOptionPane.showMessageDialog(null, "Erro ao SEARCH Clientes No BD" + e);
         }
     }
-    
-    
+
     //metodo que vai prenche os campos do formulario, com apenas um clique do mouse encima de um cliente existente na tabela de     mostrar clientes
     public void setar_campos() {
-     //a linha abaixo retorna a linha escolida na tabela com um clique   
-     int linhaEscolhida = tblMostraClientes.getSelectedRow();
-     //a linha abaixo pega a linha escolhida na tabela mostra cliente  e os respectivos dados nas colunas da tabela mostra           cliente, e seta esses dados no formulario.
-     txtNomeCliente.setText(tblMostraClientes.getModel().getValueAt(linhaEscolhida,1).toString());
-     txtRefEnderecoCliente.setText(tblMostraClientes.getModel().getValueAt(linhaEscolhida,2).toString());
-     txtCepCliente.setText(tblMostraClientes.getModel().getValueAt(linhaEscolhida,3).toString());
-     txtCidadeCliente.setText(tblMostraClientes.getModel().getValueAt(linhaEscolhida,4).toString());
-     txtEstadoCliente.setText(tblMostraClientes.getModel().getValueAt(linhaEscolhida,5).toString());
-     txtTelefoneCliente.setText(tblMostraClientes.getModel().getValueAt(linhaEscolhida,6).toString());
-     txtEmailCliente.setText(tblMostraClientes.getModel().getValueAt(linhaEscolhida,7).toString());
-     
+        //a linha abaixo retorna a linha escolida na tabela com um clique   
+        int linhaEscolhida = tblMostraClientes.getSelectedRow();
+        //a linha abaixo pega a linha escolhida na tabela mostra cliente  e os respectivos dados nas colunas da tabela mostra           cliente, e seta esses dados no formulario.
+        txtIdCliente.setText(tblMostraClientes.getModel().getValueAt(linhaEscolhida, 0).toString());
+        txtNomeCliente.setText(tblMostraClientes.getModel().getValueAt(linhaEscolhida, 1).toString());
+        txtRefEnderecoCliente.setText(tblMostraClientes.getModel().getValueAt(linhaEscolhida, 2).toString());
+        txtCepCliente.setText(tblMostraClientes.getModel().getValueAt(linhaEscolhida, 3).toString());
+        txtCidadeCliente.setText(tblMostraClientes.getModel().getValueAt(linhaEscolhida, 4).toString());
+        txtEstadoCliente.setText(tblMostraClientes.getModel().getValueAt(linhaEscolhida, 5).toString());
+        txtTelefoneCliente.setText(tblMostraClientes.getModel().getValueAt(linhaEscolhida, 6).toString());
+        txtEmailCliente.setText(tblMostraClientes.getModel().getValueAt(linhaEscolhida, 7).toString());
+        //desabilita o botão de adiconar o clinte, apos setar os dados de um cliente no formulario.
+        // porque se deixar ele ativo, ele vai cadastrar o mesmo usuario que ja existe duas vezes.
+        //apos os campos serem prenchidos no formulario, são dados de um cliente ja cadastrado, ai se eu clicar no
+        //btn adicionar vai acabar adiconado cadastrando a mesma pessoa que ja existe.
+        btnInsertCliente.setEnabled(false);
+    }
+
+    //metodo que vai alterar o cadastro de um cliente, lembrando que os dados do cliente ja tem que estar populados nos campos
+    //do formulario, isso e feito ao escolher um cliente na tabela e da um clique nele, os dados ja vão automaticamente para a      os campos do formulario
+    private void alterarClientes() {
+        //ISTRUÇÃO SQL
+        String sql = "UPDATE tbl_clientes SET nome = ?,referencia_endereco = ?,cep = ?,cidade = ?,estado = ?,telefone = ?,email =       ? WHERE id_cliente = ?;";
+        //setando os dados na consulta
+        try {
+            ps = conexao.prepareStatement(sql);
+            //nome
+            ps.setString(1, txtNomeCliente.getText());
+            //referencia_endereco
+            ps.setString(2, txtRefEnderecoCliente.getText());
+            //cep
+            ps.setString(3, txtCepCliente.getText());
+            //cidade
+            ps.setString(4, txtCidadeCliente.getText());
+            //estado
+            ps.setString(5, txtEstadoCliente.getText());
+            //telefone
+            ps.setString(6, txtTelefoneCliente.getText());
+            //email
+            ps.setString(7, txtEmailCliente.getText());
+            //esta dentro de um try chat, por que pode dar uma exception
+            //caso não tenha numero de id de um usuario, ja lanço a expection,
+            //essa exception acontece por causa de que esta convertendo um texto em branco " ", para numero. isso não pode.
+            try {
+                //setando o cliente que vai ter os dados alterados
+                ps.setInt(8, Integer.parseInt(txtIdCliente.getText()));
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(null, "Escolha um Usuario Para ser Alterado!");
+            }
+            //verificando se os campos obrigatorios não estão vazios, fazendo a validação
+            if (txtNomeCliente.getText().isEmpty() || txtTelefoneCliente.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Preencha os Campos Obrigatorios Para Alterar os Dados De Um cliente!");
+            } else {
+                //executando consulta
+                int retorno = ps.executeUpdate();
+                //adicionou ? retorna a qtd de linhas adiconadas no banco
+                if (retorno > 0) {
+                    JOptionPane.showMessageDialog(null, "Cliente Alterado Com Sucesso!");
+                    //ja faz a limpesa dos campos apos tudo de ocorrido corretamente
+                    txtIdCliente.setText(null);
+                    txtNomeCliente.setText(null);
+                    txtRefEnderecoCliente.setText(null);
+                    txtCepCliente.setText(null);
+                    txtCidadeCliente.setText(null);
+                    txtEstadoCliente.setText(null);
+                    txtTelefoneCliente.setText(null);
+                    txtEmailCliente.setText(null);
+                    //apos alterar os dados de um cliente com sucesso, e limpar os campos prenchidos no formulario,
+                    //habilito o btn de adiconar clientes novamente
+                    btnInsertCliente.setEnabled(true);
+                } else {
+                    //não fez nenhuma modificação
+                    JOptionPane.showMessageDialog(null, "Erro ao Alterar Dados do Cliente", "Atenção!", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Erro ao UPDATE Dados Cliente \n" + e);
+        }
+
+    }
+
+    //metodo que remove um cliente, exclui um cliente cadastrado(existente)
+    private void removerCliente() {
+        //pergunta se deseja realemnte excluir este cliente 
+        int confirma = JOptionPane.showConfirmDialog(null, "Tem Certeza que Deseja Remover Esse Cliente ?", "Atenção", JOptionPane.YES_NO_OPTION);
+        //se sim
+        if (confirma == JOptionPane.YES_OPTION) {
+            //consulta sql
+            String sql = "DELETE FROM tbl_clientes WHERE id_cliente = ?;";
+            try {
+                ps = conexao.prepareStatement(sql);
+                //fazendo uma validação, vendo se existe um id para ser excluido
+                try {
+                    //setando cliente que vai ser excluido, isso e feito atraves do id
+                    ps.setInt(1, Integer.parseInt(txtIdCliente.getText()));
+                    //executando consulta
+                    int retorno = ps.executeUpdate();
+                    //removeu uma linha do banco de dados, onde estava o cliente na tabela 
+                    if (retorno > 0) {
+                        JOptionPane.showMessageDialog(null, "Cliente Removido Com Sucesso!");
+                        //apos deletar usuario ja mando, limpar os componestes do formulario
+                        txtIdCliente.setText(null);
+                        txtNomeCliente.setText(null);
+                        txtRefEnderecoCliente.setText(null);
+                        txtCepCliente.setText(null);
+                        txtCidadeCliente.setText(null);
+                        txtEstadoCliente.setText(null);
+                        txtTelefoneCliente.setText(null);
+                        txtEmailCliente.setText(null);
+                        //apos deletar os dados de um cliente com sucesso, e limpar os campos prenchidos no formulario,
+                        //habilito o btn de adiconar clientes novamente
+                        btnInsertCliente.setEnabled(true);
+
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Ocorreu um erro ao remover Cliente!");
+                    }
+                } catch (NumberFormatException e) {
+                    JOptionPane.showMessageDialog(null, "Cade o Cliente a ser Excluido ?");
+                }
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, "Erro ao deletar cliente \n" + e);
+            }
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -123,10 +232,13 @@ public class Cliente extends javax.swing.JInternalFrame {
         btnExcluirCliente = new javax.swing.JButton();
         txtCepCliente = new javax.swing.JFormattedTextField();
         txtTelefoneCliente = new javax.swing.JFormattedTextField();
+        lblIdCliente = new javax.swing.JLabel();
+        txtIdCliente = new javax.swing.JTextField();
 
         setClosable(true);
         setIconifiable(true);
         setMaximizable(true);
+        setPreferredSize(new java.awt.Dimension(904, 530));
 
         txtBuscaCliente.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -197,10 +309,20 @@ public class Cliente extends javax.swing.JInternalFrame {
         btnAlterarCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones_imagens/alterar-cliente-btn.png"))); // NOI18N
         btnAlterarCliente.setToolTipText("Alterar Dados Cliente");
         btnAlterarCliente.setPreferredSize(new java.awt.Dimension(64, 64));
+        btnAlterarCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAlterarClienteActionPerformed(evt);
+            }
+        });
 
         btnExcluirCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones_imagens/delete-icon-btn.png"))); // NOI18N
         btnExcluirCliente.setToolTipText("Excluir Cadastro Cliente");
         btnExcluirCliente.setPreferredSize(new java.awt.Dimension(64, 64));
+        btnExcluirCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcluirClienteActionPerformed(evt);
+            }
+        });
 
         try {
             txtCepCliente.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("#####-###")));
@@ -214,6 +336,11 @@ public class Cliente extends javax.swing.JInternalFrame {
             ex.printStackTrace();
         }
 
+        lblIdCliente.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
+        lblIdCliente.setText("ID");
+
+        txtIdCliente.setEnabled(false);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -226,9 +353,9 @@ public class Cliente extends javax.swing.JInternalFrame {
                         .addComponent(txtBuscaCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 332, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 125, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 147, Short.MAX_VALUE)
                         .addComponent(jLabel2)
-                        .addGap(0, 1, Short.MAX_VALUE))
+                        .addGap(0, 24, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(lblNomeCliente)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -236,7 +363,11 @@ public class Cliente extends javax.swing.JInternalFrame {
                         .addGap(18, 18, 18)
                         .addComponent(lblCepCliente)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtCepCliente))
+                        .addComponent(txtCepCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblIdCliente)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtIdCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(lblReferenciaEnderecoCliente)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -281,7 +412,9 @@ public class Cliente extends javax.swing.JInternalFrame {
                     .addComponent(lblNomeCliente)
                     .addComponent(txtNomeCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblCepCliente)
-                    .addComponent(txtCepCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtCepCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblIdCliente)
+                    .addComponent(txtIdCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(35, 35, 35)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblReferenciaEnderecoCliente)
@@ -303,10 +436,10 @@ public class Cliente extends javax.swing.JInternalFrame {
                     .addComponent(btnAlterarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnInsertCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnExcluirCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addContainerGap(41, Short.MAX_VALUE))
         );
 
-        setBounds(0, 0, 859, 507);
+        setBounds(0, 0, 904, 530);
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtNomeClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNomeClienteActionPerformed
@@ -319,15 +452,25 @@ public class Cliente extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnInsertClienteActionPerformed
 
     private void txtBuscaClienteKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscaClienteKeyReleased
-      //ao ir prenchendo o campo de busca, vai mostrando os clientes encontrados, de acordo com o nome informado no componete         de busca
-      buscarClientes();
+        //ao ir prenchendo o campo de busca, vai mostrando os clientes encontrados, de acordo com o nome informado no componete         de busca
+        buscarClientes();
     }//GEN-LAST:event_txtBuscaClienteKeyReleased
 
     private void tblMostraClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblMostraClientesMouseClicked
         //ao clicar na tabela com o mouse encima de uma linha de um cliente existente,vou setar os dados da linha escolhida no          formulario
         setar_campos();
-        
+
     }//GEN-LAST:event_tblMostraClientesMouseClicked
+
+    private void btnAlterarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarClienteActionPerformed
+        // ao clicar no btn alterar vai chamar o mtd de alterar dados do cliente
+        alterarClientes();
+    }//GEN-LAST:event_btnAlterarClienteActionPerformed
+
+    private void btnExcluirClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirClienteActionPerformed
+        //ao clicar no btn vai remover um cliente
+        removerCliente();
+    }//GEN-LAST:event_btnExcluirClienteActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -341,6 +484,7 @@ public class Cliente extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lblCidadeCliente;
     private javax.swing.JLabel lblEmailCliente;
     private javax.swing.JLabel lblEstadoCliente;
+    private javax.swing.JLabel lblIdCliente;
     private javax.swing.JLabel lblNomeCliente;
     private javax.swing.JLabel lblReferenciaEnderecoCliente;
     private javax.swing.JLabel lblTelefoneCliente;
@@ -350,6 +494,7 @@ public class Cliente extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txtCidadeCliente;
     private javax.swing.JTextField txtEmailCliente;
     private javax.swing.JTextField txtEstadoCliente;
+    private javax.swing.JTextField txtIdCliente;
     private javax.swing.JTextField txtNomeCliente;
     private javax.swing.JTextField txtRefEnderecoCliente;
     private javax.swing.JFormattedTextField txtTelefoneCliente;
