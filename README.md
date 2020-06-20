@@ -8,7 +8,7 @@ Que pode acessar o sistema Desktop, e só o ADM ou so os funcionarios(Que vão p
 ## Contéudo e Material Usado Em todo o Projeto, Oriundo
  * [Curso-Completo](https://www.youtube.com/watch?v=eA4WjjkzK3c&list=PLbEOwbQR9lqxsTusvu8wfkUECrmcV81MU)
  * [Curso-Com-Certificado](https://www.aulaead.com/)
-## informações e Requisitos Do Sistema
+## Informações e Requisitos Do Projeto
  * [Documentação Completa do Projeto](https://github.com/Samuel-Amaro/Sistema-Desktop---InfoX/tree/master/Documentacao/Levantamento-Requisistos)
  * [Modelo Banco Dados a Ser Implementado](https://github.com/Samuel-Amaro/Sistema-Desktop---InfoX/blob/master/Banco-Dados/Banco-Dados-MER-MYSQL.pdf)
 ### Tecnologias(Ferramentas Usadas) Na Implementação Do Projeto e Codificação
