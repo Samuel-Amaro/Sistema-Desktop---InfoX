@@ -1,4 +1,4 @@
-# :computer: Info-X :computer:
+# Projeto Info-X
 ![Logo que representa o projeto](https://github.com/Samuel-Amaro/Sistema-Desktop---InfoX/blob/master/logo-Projeto-Java.png)
 ## Objetivo Projeto
 Projeto, Que envolve a criação de um sistema de emissão de ordem de serviços e emissão de relatórios para um pequena empresa de pequeno porte, 
