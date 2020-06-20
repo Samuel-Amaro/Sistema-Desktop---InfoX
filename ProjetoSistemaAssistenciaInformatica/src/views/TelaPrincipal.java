@@ -1,20 +1,30 @@
 package views;
 
+import dao.ModuloConexao;
 import java.text.DateFormat;
 import java.util.Date;
 import javax.swing.JOptionPane;
+import java.sql.*;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.view.JasperViewer;
 
 
 /*
  * Tela Principal Do Sistema
-*/
+ */
 public class TelaPrincipal extends javax.swing.JFrame {
+
+    //criando variaveis essenciais para usar 
+    Connection conexao;
 
     public TelaPrincipal() {
         initComponents();
+        //isntanciado uma nova conexão com o banco de dados
+        conexao = ModuloConexao.conector();
     }
 
-    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -30,7 +40,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
         menCadItemUsua = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
         menRelatorio = new javax.swing.JMenu();
-        jMenuItem4 = new javax.swing.JMenuItem();
+        itemMenuRelatorioServicos = new javax.swing.JMenuItem();
+        itemMenuRelatorioCliente = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         jMenuItem5 = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
@@ -51,14 +62,14 @@ public class TelaPrincipal extends javax.swing.JFrame {
         desktop.setLayout(desktopLayout);
         desktopLayout.setHorizontalGroup(
             desktopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 900, Short.MAX_VALUE)
+            .addGap(0, 902, Short.MAX_VALUE)
         );
         desktopLayout.setVerticalGroup(
             desktopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        lblIcone.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones_imagens/icone.png"))); // NOI18N
+        lblIcone.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones_imagens/logo-Projeto-Java -redimensionado-certa.png"))); // NOI18N
 
         lblUsuario.setFont(new java.awt.Font("Serif", 1, 24)); // NOI18N
         lblUsuario.setText("Usuario");
@@ -114,10 +125,25 @@ public class TelaPrincipal extends javax.swing.JFrame {
         menRelatorio.setText("Relatório");
         menRelatorio.setEnabled(false);
 
-        jMenuItem4.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.ALT_MASK));
-        jMenuItem4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones_imagens/icone-servico.png"))); // NOI18N
-        jMenuItem4.setText("Serviços");
-        menRelatorio.add(jMenuItem4);
+        itemMenuRelatorioServicos.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.ALT_MASK));
+        itemMenuRelatorioServicos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones_imagens/icone-servico.png"))); // NOI18N
+        itemMenuRelatorioServicos.setText("Serviços");
+        itemMenuRelatorioServicos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemMenuRelatorioServicosActionPerformed(evt);
+            }
+        });
+        menRelatorio.add(itemMenuRelatorioServicos);
+
+        itemMenuRelatorioCliente.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.event.InputEvent.ALT_MASK));
+        itemMenuRelatorioCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones_imagens/relatorio-clientes.png"))); // NOI18N
+        itemMenuRelatorioCliente.setText("Clientes");
+        itemMenuRelatorioCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemMenuRelatorioClienteActionPerformed(evt);
+            }
+        });
+        menRelatorio.add(itemMenuRelatorioCliente);
 
         jMenuBar1.add(menRelatorio);
 
@@ -156,23 +182,23 @@ public class TelaPrincipal extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(desktop, javax.swing.GroupLayout.DEFAULT_SIZE, 898, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(desktop, javax.swing.GroupLayout.DEFAULT_SIZE, 902, Short.MAX_VALUE)
+                .addGap(18, 18, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblData)
+                    .addComponent(lblIcone)
                     .addComponent(lblUsuario)
-                    .addComponent(lblIcone))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(lblData))
+                .addContainerGap(12, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(desktop, javax.swing.GroupLayout.DEFAULT_SIZE, 526, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(84, Short.MAX_VALUE)
+                .addGap(101, 101, 101)
                 .addComponent(lblUsuario)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 58, Short.MAX_VALUE)
+                .addGap(47, 47, 47)
                 .addComponent(lblData)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 55, Short.MAX_VALUE)
                 .addComponent(lblIcone)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -199,9 +225,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
         //ao clicar na opção sair, vai aparecer uma confirmação de que se realmente deseja sair.
         //exibe uma caixa de dialogo com sim ou não
-         int resposta = JOptionPane.showConfirmDialog(null,"Realmente Deseja Sair ?","Atenção",JOptionPane.YES_NO_OPTION,JOptionPane.OK_OPTION);
-        if(resposta == JOptionPane.YES_OPTION)
-           System.exit(0);
+        int resposta = JOptionPane.showConfirmDialog(null, "Realmente Deseja Sair ?", "Atenção", JOptionPane.YES_NO_OPTION, JOptionPane.OK_OPTION);
+        if (resposta == JOptionPane.YES_OPTION)
+            System.exit(0);
     }//GEN-LAST:event_jMenuItem6ActionPerformed
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
@@ -228,11 +254,49 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-       //ao clicar no item de os, abre a funcionalidades de uma OS
-       TelaOs os = new TelaOs();
-       os.setVisible(true);
-       desktop.add(os);
+        //ao clicar no item de os, abre a funcionalidades de uma OS
+        TelaOs os = new TelaOs();
+        os.setVisible(true);
+        desktop.add(os);
     }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void itemMenuRelatorioClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemMenuRelatorioClienteActionPerformed
+        //ao clicar no item cliente do menu relatorio, vai gerar o relatorio dos clientes cadastrados, na assistencia tecnica
+        //vai gerar um relatorio de clientes, usando a integração do framework jasper report com o java aqui netbens
+        //a logica e clicou em gerar relatorio clientes, faço confirmação, se relamente quiser, vou mostrar o relatorio para o clinte.
+        //a geração do relatorio e usando a integração do ireport com o java, a ferramenta de geração de relatorios do banco de dados
+        int confirma = JOptionPane.showConfirmDialog(null, "Deseja Mesmo, Gerar o Relatório de Clientes ?", "Confirma Geração Do Relatório", JOptionPane.YES_NO_OPTION);
+        //se escolheu a opção sim
+        if (confirma == JOptionPane.YES_NO_OPTION) {
+            //imprimindo o relatorio com o framework jasper Ireport
+            try {
+                //usando a classe JasperPrint(esta nas bibliotecas incluidas no projeto) para preparar impressão do relatorio de clientes
+                JasperPrint imprimiRel = JasperFillManager.fillReport("C:/Users/SAMUE/Documents/Projeto-Java-Sistema-Info-X-2020-Casa-original/Relatorios-Gerados-Ireport/relatorio-clientes.jasper", null, conexao);
+                //exibindo o relatório usando a classe JasperView(esta nas bibliotecas incluidas no projeto) para mostrar o relatorio para o cliente
+                JasperViewer.viewReport(imprimiRel, false);
+            } catch (JRException e) {
+                JOptionPane.showMessageDialog(null, "Erro ao imprimir Relatório de Clientes!");
+            }
+        }
+
+    }//GEN-LAST:event_itemMenuRelatorioClienteActionPerformed
+
+    private void itemMenuRelatorioServicosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemMenuRelatorioServicosActionPerformed
+        //outro opção do menu relatorio que vai gerar um relatorio completo de serviços
+        int confirma = JOptionPane.showConfirmDialog(null, "Deseja Mesmo, Gerar o Relatório de Serviços ?", "Confirma Geração Do Relatório", JOptionPane.YES_NO_OPTION);
+        //se escolheu a opção sim
+        if (confirma == JOptionPane.YES_NO_OPTION) {
+            //imprimindo o relatorio com o framework jasper Ireport
+            try {
+                //usando a classe JasperPrint(esta nas bibliotecas incluidas no projeto) para preparar impressão do relatorio de clientes
+                JasperPrint imprimiRel = JasperFillManager.fillReport("C:/Users/SAMUE/Documents/Projeto-Java-Sistema-Info-X-2020-Casa-original/Relatorios-Gerados-Ireport/relatorio_servicos.jasper", null, conexao);
+                //exibindo o relatório usando a classe JasperView(esta nas bibliotecas incluidas no projeto) para mostrar o relatorio para o cliente
+                JasperViewer.viewReport(imprimiRel, false);
+            } catch (JRException e) {
+                JOptionPane.showMessageDialog(null, "Erro ao imprimir Relatório de Serviços!");
+            }
+        }
+    }//GEN-LAST:event_itemMenuRelatorioServicosActionPerformed
 
     /**
      * @param args the command line arguments
@@ -271,6 +335,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane desktop;
+    private javax.swing.JMenuItem itemMenuRelatorioCliente;
+    private javax.swing.JMenuItem itemMenuRelatorioServicos;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
@@ -278,7 +344,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JLabel lblData;

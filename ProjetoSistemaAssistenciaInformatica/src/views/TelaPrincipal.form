@@ -80,7 +80,7 @@
             <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
           </AuxValues>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem4">
+            <MenuItem class="javax.swing.JMenuItem" name="itemMenuRelatorioServicos">
               <Properties>
                 <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
                   <KeyStroke key="Alt+S"/>
@@ -90,6 +90,23 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Servi&#xe7;os"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="itemMenuRelatorioServicosActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="itemMenuRelatorioCliente">
+              <Properties>
+                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
+                  <KeyStroke key="Alt+R"/>
+                </Property>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/icones_imagens/relatorio-clientes.png"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Clientes"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="itemMenuRelatorioClienteActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>
@@ -169,14 +186,14 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
-              <Component id="desktop" pref="898" max="32767" attributes="0"/>
-              <EmptySpace max="32767" attributes="0"/>
+              <Component id="desktop" pref="902" max="32767" attributes="0"/>
+              <EmptySpace type="separate" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="lblData" min="-2" max="-2" attributes="0"/>
-                  <Component id="lblUsuario" min="-2" max="-2" attributes="0"/>
                   <Component id="lblIcone" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="lblUsuario" min="-2" max="-2" attributes="0"/>
+                  <Component id="lblData" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace max="32767" attributes="0"/>
+              <EmptySpace pref="12" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -184,11 +201,11 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Component id="desktop" pref="526" max="32767" attributes="0"/>
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace pref="84" max="32767" attributes="0"/>
+              <EmptySpace min="-2" pref="101" max="-2" attributes="0"/>
               <Component id="lblUsuario" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="58" max="32767" attributes="0"/>
+              <EmptySpace min="-2" pref="47" max="-2" attributes="0"/>
               <Component id="lblData" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="61" max="32767" attributes="0"/>
+              <EmptySpace pref="55" max="32767" attributes="0"/>
               <Component id="lblIcone" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="32767" attributes="0"/>
           </Group>
@@ -206,7 +223,7 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <EmptySpace min="0" pref="900" max="32767" attributes="0"/>
+              <EmptySpace min="0" pref="902" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
@@ -219,7 +236,7 @@
     <Component class="javax.swing.JLabel" name="lblIcone">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/icones_imagens/icone.png"/>
+          <Image iconType="3" name="/icones_imagens/logo-Projeto-Java -redimensionado-certa.png"/>
         </Property>
       </Properties>
     </Component>

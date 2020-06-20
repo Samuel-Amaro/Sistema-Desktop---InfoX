@@ -3,9 +3,13 @@ package views;
 //bibliotecas necessarias para desenvolver a tela OS
 import dao.ModuloConexao;
 import java.sql.*;
+import java.util.HashMap;
 import javax.swing.JOptionPane;
 import net.proteanit.sql.DbUtils; //vai usar a tabela para prenchimento de clientes automaticos
-
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.view.JasperViewer;
 
 
 public class TelaOs extends javax.swing.JInternalFrame {
@@ -16,89 +20,89 @@ public class TelaOs extends javax.swing.JInternalFrame {
     ResultSet rs;
     //variavel abaixo armazena o resutado do radioButon selecionado
     private String tipo;
-  
+
     public TelaOs() {
         initComponents();
         //criando uma conexão com o banco de dados
         conexao = ModuloConexao.conector();
     }
-   
+
     //metodo de pesquisar clientes na area de clientes, vai ser um metodo que vai possuir uma pesquisa avançada, usando uma biblioteca externa para            auxiliar na pesquisa
     private void pesquisar_cliente() {
-    //consulta SQL avançada, que tem como filtragem o nome do cliente, onde so informando o nome do cliente, vai trazer nomes semelhentes ou parecidos ao       informado na consulta
-    String sql = "SELECT id_cliente,nome,telefone FROM tbl_clientes WHERE nome like ?;";
+        //consulta SQL avançada, que tem como filtragem o nome do cliente, onde so informando o nome do cliente, vai trazer nomes semelhentes ou parecidos ao       informado na consulta
+        String sql = "SELECT id_cliente,nome,telefone FROM tbl_clientes WHERE nome like ?;";
         try {
-            ps = conexao.prepareStatement(sql);        
+            ps = conexao.prepareStatement(sql);
             //setando dados na consulta
-            ps.setString(1,txtNomeCliente.getText() + "%"); //o % e continuação da consulta SQL
+            ps.setString(1, txtNomeCliente.getText() + "%"); //o % e continuação da consulta SQL
             //executando consulta, se der certo a consulta tem que trazer os nomes de clientes semelhantes ou o proprio nome informado na consulta, se for             encontrado
             rs = ps.executeQuery();
             //apos trazer os nomes, tenho que jogalos na tabela la do cliente na tela para o usuario escolher o cliente certo
             //a linha abaixo so faz jogar os dados na tabela, mas tenho que fazer a tabela ter um evento que ao usuario ir digitando os nomes de cliente a             tabela ja ir trazendo resultados semelhantes ao nome informado
             tblResultadoPesquisaClientes.setModel(DbUtils.resultSetToTableModel(rs));
         } catch (SQLException e) {
-                JOptionPane.showMessageDialog(null,"Consulta De Clientes Falhou!\n" + e);
+            JOptionPane.showMessageDialog(null, "Consulta De Clientes Falhou!\n" + e);
         }
     }
-    
+
     //metodo que vai setar campos, metodo que ao usuario escolher um cliente vou setar o campo id, para mostrar qual cliente foi selecionado
     private void setar_campos() {
-       //retorna o indice da linha selecionada  na tabela 
-       int setar = tblResultadoPesquisaClientes.getSelectedRow();
-       //setando o id do cliente selecionado com o evento de clicar com o mouse
-       txtIdCliente.setText(tblResultadoPesquisaClientes.getModel().getValueAt(setar,0).toString());
+        //retorna o indice da linha selecionada  na tabela 
+        int setar = tblResultadoPesquisaClientes.getSelectedRow();
+        //setando o id do cliente selecionado com o evento de clicar com o mouse
+        txtIdCliente.setText(tblResultadoPesquisaClientes.getModel().getValueAt(setar, 0).toString());
     }
-    
+
     //metodo que vai cadastrar uma ordem serviço no banco de dados
     private void emitir_os() {
-      String sql = "INSERT INTO tbl_os (equipamento,problema,descricao,tecnico,valor,id_cliente,tipo_os,situacao_equip) VALUES                                   (?,?,?,?,?,?,?,?);"; 
+        String sql = "INSERT INTO tbl_os (equipamento,problema,descricao,tecnico,valor,id_cliente,tipo_os,situacao_equip) VALUES                                   (?,?,?,?,?,?,?,?);";
         try {
             ps = conexao.prepareStatement(sql);
             //setando dados na consulta
-            ps.setString(1,txtEquipamento.getText());
-            ps.setString(2,txtProblemaEquipamento.getText());
-            ps.setString(3,txtDescricao.getText());
-            ps.setString(4,txtTecnicoResponsavel.getText());
-            ps.setString(5,txtValorTotal.getText());
+            ps.setString(1, txtEquipamento.getText());
+            ps.setString(2, txtProblemaEquipamento.getText());
+            ps.setString(3, txtDescricao.getText());
+            ps.setString(4, txtTecnicoResponsavel.getText());
+            ps.setString(5, txtValorTotal.getText());
             //tratando uma exceção na conversão de string para int
             try {
-                ps.setInt(6,Integer.parseInt(txtIdCliente.getText()));
+                ps.setInt(6, Integer.parseInt(txtIdCliente.getText()));
             } catch (NumberFormatException e) {
-                     JOptionPane.showMessageDialog(null,"Prencha os campos obrigatorios");
+                JOptionPane.showMessageDialog(null, "Prencha os campos obrigatorios");
             }
             ps.setString(7, tipo);
-            ps.setString(8,cbbSitucaoEquipamento.getSelectedItem().toString());
+            ps.setString(8, cbbSitucaoEquipamento.getSelectedItem().toString());
             //fazendo validação dos campos obrigatorios vendo se foram preenchidos
             if ((txtEquipamento.getText().isEmpty()) || (txtProblemaEquipamento.getText().isEmpty())) {
-                JOptionPane.showMessageDialog(null,"Prencha os campos obrigatorios\n");
+                JOptionPane.showMessageDialog(null, "Prencha os campos obrigatorios\n");
             } else {
-                   int ad = ps.executeUpdate();
-                   if(ad > 0) {
-                      JOptionPane.showMessageDialog(null,"OS emitida Com Sucesso!");
-                      //limpando os campos
-                      txtNomeCliente.setText(null);
-                      txtIdCliente.setText(null);
-                      txtEquipamento.setText(null);
-                      txtProblemaEquipamento.setText(null);
-                      txtDescricao.setText(null);
-                      txtTecnicoResponsavel.setText(null);
-                      txtValorTotal.setText(null);
-                   }else{
-                       JOptionPane.showMessageDialog(null,"OS não foi emitida!");
-                   }
+                int ad = ps.executeUpdate();
+                if (ad > 0) {
+                    JOptionPane.showMessageDialog(null, "OS emitida Com Sucesso!");
+                    //limpando os campos
+                    txtNomeCliente.setText(null);
+                    txtIdCliente.setText(null);
+                    txtEquipamento.setText(null);
+                    txtProblemaEquipamento.setText(null);
+                    txtDescricao.setText(null);
+                    txtTecnicoResponsavel.setText(null);
+                    txtValorTotal.setText(null);
+                } else {
+                    JOptionPane.showMessageDialog(null, "OS não foi emitida!");
+                }
             }
         } catch (SQLException e) {
-               JOptionPane.showMessageDialog(null,"Inserção da Nova OS Falhou!\n" + e);
+            JOptionPane.showMessageDialog(null, "Inserção da Nova OS Falhou!\n" + e);
         }
     }
-    
+
     //metodo para pesquisar uma ordem de serviço
     private void pesquisar_os() {
-       //a linha abaixo cria uma entrada do tipo JoptionPane, onde eu recebo essa entrada o resultado da entrada para buscar a OS.
-       //vai mostrar uma caixa de dialogo de pergunta, solicitando uma entrada do usuario.
-       String numero_os = JOptionPane.showInputDialog("Numero Da OS");
-       //consulta sql
-       String sql = "SELECT * FROM tbl_os WHERE id_os = " + numero_os;
+        //a linha abaixo cria uma entrada do tipo JoptionPane, onde eu recebo essa entrada o resultado da entrada para buscar a OS.
+        //vai mostrar uma caixa de dialogo de pergunta, solicitando uma entrada do usuario.
+        String numero_os = JOptionPane.showInputDialog("Numero Da OS");
+        //consulta sql
+        String sql = "SELECT * FROM tbl_os WHERE id_os = " + numero_os;
         try {
             //preparando consulta
             ps = conexao.prepareStatement(sql);
@@ -137,16 +141,133 @@ public class TelaOs extends javax.swing.JInternalFrame {
                 //deixando a tabela invisel  para o usuario não poder mecher na tabela
                 tblResultadoPesquisaClientes.setVisible(false);
             } else {
-                   JOptionPane.showMessageDialog(null,"OS não Cadastrada");
+                JOptionPane.showMessageDialog(null, "OS não Cadastrada");
             }
-        }catch(SQLSyntaxErrorException t) {
-              JOptionPane.showMessageDialog(null,"OS inválida!" + t);
-        } 
-        catch (SQLException e) {
-                 JOptionPane.showMessageDialog(null,"Ocorreu uma falha ao encontrar a OS informada!\n" + e);
+        } catch (SQLSyntaxErrorException t) {
+            JOptionPane.showMessageDialog(null, "OS inválida!" + t);
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Ocorreu uma falha ao encontrar a OS informada!\n" + e);
+        }
+    }
+
+    //metodo que faz a alteração de dados em uma ordem de serviço
+    private void alterar_os() {
+        //consulta sql, para alteração de dados
+        String sql = "UPDATE tbl_os SET equipamento = ?,problema = ?,descricao = ?,tecnico = ?,valor = ?,tipo_os = ?,situacao_equip = ? WHERE id_os = ?";
+        try {
+            ps = conexao.prepareStatement(sql);
+            //setando dados na consulta
+            ps.setString(1, txtEquipamento.getText());
+            ps.setString(2, txtProblemaEquipamento.getText());
+            ps.setString(3, txtDescricao.getText());
+            ps.setString(4, txtTecnicoResponsavel.getText());
+            ps.setString(5, txtValorTotal.getText());
+            ps.setString(6, tipo);
+            ps.setString(7, cbbSitucaoEquipamento.getSelectedItem().toString());
+            //dizendo qual os e para alterar os dados
+            try {
+                ps.setInt(8, Integer.parseInt(txtNumeroOs.getText()));
+                //fazendo validação dos campos obrigatorios vendo se foram preenchidos
+                if ((txtEquipamento.getText().isEmpty()) || (txtProblemaEquipamento.getText().isEmpty())) {
+                    JOptionPane.showMessageDialog(null, "Prencha os campos obrigatorios\n");
+                } else {
+                    //executando consulta
+                    if (ps.executeUpdate() > 0) {
+                        JOptionPane.showMessageDialog(null, "OS Atualizada Com Sucesso!\n");
+                        //limpando os campos
+                        txtDataOS.setText(null);
+                        txtNumeroOs.setText(null);
+                        txtNomeCliente.setText(null);
+                        txtIdCliente.setText(null);
+                        txtEquipamento.setText(null);
+                        txtProblemaEquipamento.setText(null);
+                        txtDescricao.setText(null);
+                        txtTecnicoResponsavel.setText(null);
+                        txtValorTotal.setText(null);
+                        //habilitando os campos que foram desabilitados na função de pesquisar os
+                        btnInserirOs.setEnabled(true);
+                        txtNomeCliente.setEnabled(true);
+                        tblResultadoPesquisaClientes.setVisible(true);
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Erro ao atualizar OS\n");
+                    }
+                }
+                //se não tiver nenhum cliente vinculado a OS
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(null, "Precisa De Uma OS Para Atualizar Uma OS!\n" + e);
+            }
+            //se a alteração da os Falhar
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Erro Ao Atualizar OS\n" + e);
+        }
+    }
+
+    //metodo que faz a exclusão de um ordem de serviço
+    private void excluir_os() {
+        int confirma = JOptionPane.showConfirmDialog(null, "Tem Certeza Que Deseja Excluir Essa OS ?", "Confirma", JOptionPane.YES_NO_OPTION, JOptionPane.OK_OPTION);
+        if (confirma == JOptionPane.YES_NO_OPTION) {
+            //consulta sql
+            String sql = "DELETE FROM tbl_os WHERE id_os = ?";
+            try {
+                ps = conexao.prepareStatement(sql);
+                //setando dados na consulta
+                //dizendo qual os vai ser excluida, sendo identificada pelo id_os
+                ps.setString(1, txtNumeroOs.getText());
+                //executando consulta
+                if (ps.executeUpdate() > 0) {
+                    JOptionPane.showMessageDialog(null, "OS Excluida com Sucesso\n");
+                    //limpando os campos
+                    txtDataOS.setText(null);
+                    txtNumeroOs.setText(null);
+                    txtNomeCliente.setText(null);
+                    txtIdCliente.setText(null);
+                    txtEquipamento.setText(null);
+                    txtProblemaEquipamento.setText(null);
+                    txtDescricao.setText(null);
+                    txtTecnicoResponsavel.setText(null);
+                    txtValorTotal.setText(null);
+                    //habilitando os campos que foram desabilitados na função de pesquisar os
+                    btnInserirOs.setEnabled(true);
+                    txtNomeCliente.setEnabled(true);
+                    tblResultadoPesquisaClientes.setVisible(true);
+                } else {
+                       JOptionPane.showMessageDialog(null,"Falha ao excluir OS");
+                }
+            } catch (SQLException e) {
+                     JOptionPane.showMessageDialog(null,"Falha ao excluir OS" + e);
+            }
         }
     }
     
+    //metodo para poder imprimir uma OS pronta, usando o framework ireport integrado com o netbens(adiconado as bibliotecas no projeto).
+    private void imprimir_os() {
+     //antes de realmente imprimir a OS, preciso perguntar se realmente deseja imprimir um OS
+     int confirma = JOptionPane.showConfirmDialog(null,"Realmente Deseja Imprimir Essa OS ?","Atenção!",JOptionPane.YES_NO_OPTION,JOptionPane.          QUESTION_MESSAGE);
+     //paramentro Question_mESSAGE(serve para perguntas) em uma caixa de dialogo, icone de pergunta
+     //verifico se o usuario escolheu a opção sim, na caixa de dialogo
+     if(confirma == JOptionPane.YES_NO_OPTION) {
+       //se escolheu a opção sim, vamos partir para a impressão da OS atual, que esta no frame, vamos mostrar ela para o ususario em formato de papel A4
+       //pronto para impressão, tudo isso usando o framework ireport, que esta integrado no projeto com todas as suas bibliotecas armazenadas no projeto
+         try {
+             //usando a classe hashMap para criar um filtro para poder imprimir uma os especifica
+             //parametro == os_que_Vai_Ser_emitida, foi criado la no ireport
+             HashMap filtro = new HashMap();
+             filtro.put("os_que_vai_ser_emitida",Integer.parseInt(txtNumeroOs.getText()));
+             //preparando impressao == ps
+             //Classe JasperPrint(prepara a impressão do documento, do relatorio) usando o metodo fillReport();
+             //precisa informa um modelo de relatorio pronto, que tenha sido feito no ireport, para o metodo
+             JasperPrint ps = JasperFillManager.fillReport("C:/Users/SAMUE/Documents/Projeto-Java-Sistema-Info-X-2020-Casa-original/Relatorios-Gerados-Ireport/emiti-relatorio-ordem_servico.jasper",filtro, conexao);
+             //exibindo o documento da OS em forma de papel, pronto para impressão, usando o JasperView
+             JasperViewer.viewReport(ps,false);
+         } catch (JRException e) {
+                 JOptionPane.showMessageDialog(null,"Falha ao imprimir a OS" + e);
+         }
+     }
+        
+        
+    }
+    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -393,15 +514,30 @@ public class TelaOs extends javax.swing.JInternalFrame {
         btnAlterarOs.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones_imagens/change-os.png"))); // NOI18N
         btnAlterarOs.setToolTipText("Atualizar Ordem Serviço");
         btnAlterarOs.setPreferredSize(new java.awt.Dimension(64, 64));
+        btnAlterarOs.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAlterarOsActionPerformed(evt);
+            }
+        });
 
         btnDeletarOs.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones_imagens/delete-document.png"))); // NOI18N
         btnDeletarOs.setToolTipText("Deletar Uma Ordem Serviço");
         btnDeletarOs.setPreferredSize(new java.awt.Dimension(64, 64));
+        btnDeletarOs.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeletarOsActionPerformed(evt);
+            }
+        });
 
         btnImprimirOs.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones_imagens/print-os.png"))); // NOI18N
         btnImprimirOs.setToolTipText("Imprimir OS");
         btnImprimirOs.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnImprimirOs.setPreferredSize(new java.awt.Dimension(64, 64));
+        btnImprimirOs.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnImprimirOsActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -533,6 +669,21 @@ public class TelaOs extends javax.swing.JInternalFrame {
         //ao clicar no botão de pesquisar uma OS
         pesquisar_os();
     }//GEN-LAST:event_btnBuscarOsActionPerformed
+
+    private void btnAlterarOsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarOsActionPerformed
+        //ao clicar no botão de alterar uma OS
+        alterar_os();
+    }//GEN-LAST:event_btnAlterarOsActionPerformed
+
+    private void btnDeletarOsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeletarOsActionPerformed
+        //ao clicar no botão vai chamar o metodo de excluir uma ordem de serviço
+        excluir_os();
+    }//GEN-LAST:event_btnDeletarOsActionPerformed
+
+    private void btnImprimirOsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImprimirOsActionPerformed
+        // ao clicar no btn de impressão, vai imprimir uma os
+        imprimir_os();
+    }//GEN-LAST:event_btnImprimirOsActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -500,6 +500,9 @@
           <Dimension value="[64, 64]"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAlterarOsActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnDeletarOs">
       <Properties>
@@ -511,6 +514,9 @@
           <Dimension value="[64, 64]"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnDeletarOsActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnImprimirOs">
       <Properties>
@@ -525,6 +531,9 @@
           <Dimension value="[64, 64]"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnImprimirOsActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>
