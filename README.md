@@ -7,8 +7,8 @@ E o administrador possa obter o controle da emissão de relatórios, de ordem de
 Que pode acessar o sistema Desktop, e só o ADM ou so os funcionarios(Que vão possuir um acesso restrito, com algumas funcionalidades desativadas para eles). E um projeto que pode ter uma aplicação real, mas que por enquanto e so ficticio, para fins de aprendizado, onde requisitos e informações foram elaboradas por um professor.
 ## informações e Requisitos Do Sistema
  * [Documentação Completa do Projeto](https://github.com/Samuel-Amaro/Sistema-Desktop---InfoX/tree/master/Documentacao/Levantamento-Requisistos)
- * [Modelo Banco Dados a Ser Implementado]()
-### Tecnologias(Ferramentas Usadas)
+ * [Modelo Banco Dados a Ser Implementado](https://github.com/Samuel-Amaro/Sistema-Desktop---InfoX/blob/master/Banco-Dados/Banco-Dados-MER-MYSQL.pdf)
+### Tecnologias(Ferramentas Usadas) Na Implementação Do Projeto e Codificação
  * Linguagem Java 
  * Banco Dados - MySQL
  * IDE - Netbeans 11.0
@@ -16,7 +16,11 @@ Que pode acessar o sistema Desktop, e só o ADM ou so os funcionarios(Que vão p
  * API Swing( GUI - interface de Usuário Gráfica)
  * API [Driver de Conexão com o banco de dados](https://dev.mysql.com/downloads/connector/j/5.1.html)
  * Conectando o Sistema Com o Banco de dados usando(usando a DriverManager interface JDBC 8.0.20)
+ #### Frameworks Compativeis Com o Java Usados No Projetos
  * [API usada para poder elaborar uma pesquisa avançada de clientes no sistema](https://sourceforge.net/projects/finalangelsanddemons/)
+ * [API usada para poder emitir Relatórios Dinamicos Diretamente do banco de dados Vinculado ao Projeto](https://sourceforge.net/projects/ireport/)
+ * [Para Saber Mais Sobre o Framework Java Ireport 5.6.0](https://community.jaspersoft.com/project/ireport-designer)
+ ##### Ferramentas Externas Usadas
  * [para modelagem relacional do banco dados](https://app.diagrams.net/)
  * [Balsamiq Wireframes](https://balsamiq.com/wireframes/) (para prototipação de Window)
  * [Site Para baixar icones dos componentes do projeto](https://www.iconfinder.com/)
