@@ -27,3 +27,33 @@ Que pode acessar o sistema Desktop, e só o ADM ou so os funcionarios(Que vão p
  * [para modelagem relacional do banco dados](https://app.diagrams.net/)
  * [Balsamiq Wireframes](https://balsamiq.com/wireframes/) (para prototipação de Window)
  * [Site Para baixar icones dos componentes do projeto](https://www.iconfinder.com/)
+
+### Prototipagem das Telas
+* Interface Login
+
+
+![Tela Login](https://github.com/Samuel-Amaro/Sistema-Desktop---InfoX/blob/master/Documentacao/Prototipos-telas/prototipo-tela-login.PNG)
+* interface Principal
+
+
+![Tela Principal](https://github.com/Samuel-Amaro/Sistema-Desktop---InfoX/blob/master/Documentacao/Prototipos-telas/tela-principal-funcionando.PNG)
+* Interface Usúarios
+
+
+![Tela Usuarios](https://github.com/Samuel-Amaro/Sistema-Desktop---InfoX/blob/master/Documentacao/Prototipos-telas/prototipo-tela-usuarios-funcionando-parte-3.PNG)
+* Interface Clientes
+
+
+![Tela Usuarios](https://github.com/Samuel-Amaro/Sistema-Desktop---InfoX/blob/master/Documentacao/Prototipos-telas/prototipo-tela-cliente-funcionando-parte-2.PNG)
+* Interface Emitindo Relatório Principal Sistema
+
+
+![Tela Relatorios](https://github.com/Samuel-Amaro/Sistema-Desktop---InfoX/blob/master/Documentacao/Prototipos-telas/emitindo-relatorios-completo-parte-4.PNG)
+* Interface Emitindo Relatório Clientes Cadastrados
+
+
+![Tela Relatorios Cliente](https://github.com/Samuel-Amaro/Sistema-Desktop---InfoX/blob/master/Documentacao/Prototipos-telas/emitindo-relatorios-clientes-parte-5.PNG)
+* Interface Sobre o Sistema
+
+
+![Tela Sobre](https://github.com/Samuel-Amaro/Sistema-Desktop---InfoX/blob/master/Documentacao/Prototipos-telas/tela-sobre-sistema-parte-5.PNG)
