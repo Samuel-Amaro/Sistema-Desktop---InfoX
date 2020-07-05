@@ -57,3 +57,8 @@ Que pode acessar o sistema Desktop, e só o ADM ou so os funcionarios(Que vão p
 
 
 ![Tela Sobre](https://github.com/Samuel-Amaro/Sistema-Desktop---InfoX/blob/master/Documentacao/Prototipos-telas/tela-sobre-sistema-parte-5.PNG)
+* Interface Para Cadastrar OS(Ordem Serviço) no Sistema
+
+
+![Tela Os](https://github.com/Samuel-Amaro/Sistema-Desktop---InfoX/blob/master/Documentacao/Prototipos-telas/prototipo-tela-funcionando-parte-1.PNG)
+
