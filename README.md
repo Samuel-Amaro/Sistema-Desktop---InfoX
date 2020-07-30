@@ -61,4 +61,5 @@ Que pode acessar o sistema Desktop, e só o ADM ou so os funcionarios(Que vão p
 
 
 ![Tela Os](https://github.com/Samuel-Amaro/Sistema-Desktop---InfoX/blob/master/Documentacao/Prototipos-telas/prototipo-tela-funcionando-parte-1.PNG)
-
+### Arquivo .jar do projeto para costrui um EXE para Windows e para Outras Plataformas, Multiplataforme
+ * [.jar](https://github.com/Samuel-Amaro/Sistema-Desktop---InfoX/tree/master/ProjetoSistemaAssistenciaInformatica/dist)
