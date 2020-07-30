@@ -61,5 +61,14 @@ Que pode acessar o sistema Desktop, e só o ADM ou so os funcionarios(Que vão p
 
 
 ![Tela Os](https://github.com/Samuel-Amaro/Sistema-Desktop---InfoX/blob/master/Documentacao/Prototipos-telas/prototipo-tela-funcionando-parte-1.PNG)
+* Interface de CRUD(OS) recebendo o cadastro de uma Ordem de Serviço
+
+
+![Tela Sobre](https://github.com/Samuel-Amaro/Sistema-Desktop---InfoX/blob/master/Documentacao/Prototipos-telas/tela-os-com-cadastro.PNG)
+* Usando a API-ireport para imprimir uma ordem de serviço recem cadastrada no CRUD(OS)
+
+
+![Tela Sobre](https://github.com/Samuel-Amaro/Sistema-Desktop---InfoX/blob/master/Documentacao/Prototipos-telas/emitindo-relatorio-os-cadastrada.PNG)
+
 ### Arquivo .jar do projeto para costrui um EXE para Windows e para Outras Plataformas, Multiplataforme
  * [.jar](https://github.com/Samuel-Amaro/Sistema-Desktop---InfoX/tree/master/ProjetoSistemaAssistenciaInformatica/dist)
