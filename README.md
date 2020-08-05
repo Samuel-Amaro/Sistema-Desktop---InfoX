@@ -29,10 +29,9 @@ Que pode acessar o sistema Desktop, e só o ADM ou so os funcionarios(Que vão p
  * [Site Para baixar icones dos componentes do projeto](https://www.iconfinder.com/)
 
 ### Prototipagem das Telas
-* Interface Login
-
-
-![Tela Login](https://github.com/Samuel-Amaro/Sistema-Desktop---InfoX/blob/master/Documentacao/Prototipos-telas/prototipo-tela-login.PNG)
+* **COMO SE AUTENTICAR(ENTRAR NO SISTEMA) E SAIR DO SISTEMA**
+  * Preview que demostra ao usuario como e a interface de Login e a interface principal do sistema, mostrando as funções principais do sistema, onde acessalas, e como sair do sistema
+![Tela Login](https://github.com/Samuel-Amaro/Sistema-Desktop---InfoX/blob/master/previews-gif-software/preview-login-tela-princiapal.gif)  
 * interface Principal
 
 
