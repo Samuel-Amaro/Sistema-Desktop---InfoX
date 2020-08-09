@@ -30,44 +30,46 @@ Que pode acessar o sistema Desktop, e só o ADM ou so os funcionarios(Que vão p
 
 ### Prototipagem das Telas
 * **COMO SE AUTENTICAR(ENTRAR NO SISTEMA) E SAIR DO SISTEMA**
-  * Preview que demostra ao usuario como e a interface de Login e a interface principal do sistema, mostrando as funções principais do sistema, onde acessalas, e como sair do sistema
+  * Preview que demostra ao usuario como e a interface de Login e a interface principal do sistema, mostrando as funções principais do sistema, onde acessalas, e como sair do sistema;
+  * Mostrando como um ***USUARIO COM PERFIL ADMIN pode se autenticar;***
+  * Existe dois tipos de acessos no sistema;
+    1. Usuarios que possui Perfil ADMIN(Tem todas funcionalidades do sistema liberada para ele);
+    1. Usuarios que Possui Perfil USER(algumas funcionalidades são restritas a esse perfil);
+   
+   
 ![Tela Login](https://github.com/Samuel-Amaro/Sistema-Desktop---InfoX/blob/master/previews-gif-software/preview-login-tela-princiapal.gif)  
-* interface Principal
+* **PREVIEW CLIENTES - DEMOSTRANDO COMO PODE SE UTLIZAR UM CLIENTE NO SISTEMA**
+  * Como se cadastrar um novo cliente, como se altera o cadastro de um cliente, e como excluir um cliente do sistema;
 
 
-![Tela Principal](https://github.com/Samuel-Amaro/Sistema-Desktop---InfoX/blob/master/Documentacao/Prototipos-telas/tela-principal-funcionando.PNG)
-* Interface Usúarios
+![Tela Principal](https://github.com/Samuel-Amaro/Sistema-Desktop---InfoX/blob/master/previews-gif-software/preview-crud-clientes.gif)
+* **PREVIEW USUARIO - DESMOTRANDO COMO UTILIZAR AS FUNCIONALIDADES DE UM USUARIO NO SISTEMA**
+  * Um Usuario logado Com permissão perfil de ADMIN pode cadastrar,alterar,excluir outros usuarios no sistema;
+  * Um usuario com perfil de USER tem funcionalidades de Alteração,cadastro,exclusão de outros usuarios inibidas;
 
 
-![Tela Usuarios](https://github.com/Samuel-Amaro/Sistema-Desktop---InfoX/blob/master/Documentacao/Prototipos-telas/prototipo-tela-usuarios-funcionando-parte-3.PNG)
-* Interface Clientes
+![Tela Usuarios](https://github.com/Samuel-Amaro/Sistema-Desktop---InfoX/blob/master/previews-gif-software/preview-crud-usuarios.gif)
+* **PREVIEW ORDEM SERVIÇO - DEMOSTRANDO COMO SE USA AS FUNCIONALIDADES DA INTERFACE DE ORDEM DE SERVIÇO NO SISTEMA**
+  1. Abaixo segue como se cadastra um nova ordem de serviço ou orçamento, tudo pode ser configurado antes de se cadastrar o novo item no sistema;
 
 
-![Tela Usuarios](https://github.com/Samuel-Amaro/Sistema-Desktop---InfoX/blob/master/Documentacao/Prototipos-telas/prototipo-tela-cliente-funcionando-parte-2.PNG)
-* Interface Emitindo Relatório Principal Sistema
+  ![Tela Usuarios](https://github.com/Samuel-Amaro/Sistema-Desktop---InfoX/blob/master/previews-gif-software/preview-insert-os.gif)
+  1. Abaixo segue como pode se buscar uma ordem de serviço ou um orçamento cadastrado no sistema, e fazer uma alteração de uma informação, e manter atualiada!
 
 
-![Tela Relatorios](https://github.com/Samuel-Amaro/Sistema-Desktop---InfoX/blob/master/Documentacao/Prototipos-telas/emitindo-relatorios-completo-parte-4.PNG)
-* Interface Emitindo Relatório Clientes Cadastrados
+  ![Tela Relatorios](https://github.com/Samuel-Amaro/Sistema-Desktop---InfoX/blob/master/previews-gif-software/preview-update-os.gif)
+  1. Abaixo segue como se busca uma ordem de serviço ou orçamento, e como fazer a impressão desse item, em papel fisico A4;
 
 
-![Tela Relatorios Cliente](https://github.com/Samuel-Amaro/Sistema-Desktop---InfoX/blob/master/Documentacao/Prototipos-telas/emitindo-relatorios-clientes-parte-5.PNG)
-* Interface Sobre o Sistema
+  ![Tela Relatorios Cliente](https://github.com/Samuel-Amaro/Sistema-Desktop---InfoX/blob/master/previews-gif-software/preview-imprimindo-os.gif)
+* **PREVIEW RELATÓRIO - DEMOSTRANDO COMO UM USUARIO COM PERFIL ADMIN PODE OBTER INFORMAÇÕES DO SISTEMA, EMITINDO RELATORIOS DINAMICOS**
+  * Somente usuario com perfil ADMIN, pode ter acesso a essa funcionalidade, onde ele consegue imprimir um relatorio dinamico, do banco de dados com informações atualizadas, de   todos os clientes que seu seguimento comercial possui, dentro do sistema. Ao final pode se obter a impressão desse relatorio;
 
 
-![Tela Sobre](https://github.com/Samuel-Amaro/Sistema-Desktop---InfoX/blob/master/Documentacao/Prototipos-telas/tela-sobre-sistema-parte-5.PNG)
-* Interface Para Cadastrar OS(Ordem Serviço) no Sistema
+![Tela Sobre](https://github.com/Samuel-Amaro/Sistema-Desktop---InfoX/blob/master/previews-gif-software/preview-imprimindo-relatorios-clientes.gif)
+* **PREVIEW RELATÓRIO - DESMOSTRANDO COMO UM USUARIO COM PERFIL ADMIN, PODE OBTER INFORMAÇÕES DO SISTEMA, EMITINDO RELATORIOS DINAMICOS**
+  * Somente usuario Logado e com perfil ADMIN, tem acesso a essa funcionalidade, de emitir um relatorio dinamico diretamente do banco de dados, de quantas ordem serviços ou       orçamentos ja emitiu, durante a existencia do sistema, no final pode se imprimir em um papel A4.
 
-
-![Tela Os](https://github.com/Samuel-Amaro/Sistema-Desktop---InfoX/blob/master/Documentacao/Prototipos-telas/prototipo-tela-funcionando-parte-1.PNG)
-* Interface de CRUD(OS) recebendo o cadastro de uma Ordem de Serviço
-
-
-![Tela Sobre](https://github.com/Samuel-Amaro/Sistema-Desktop---InfoX/blob/master/Documentacao/Prototipos-telas/tela-os-com-cadastro.PNG)
-* Usando a API-ireport para imprimir uma ordem de serviço recem cadastrada no CRUD(OS)
-
-
-![Tela Sobre](https://github.com/Samuel-Amaro/Sistema-Desktop---InfoX/blob/master/Documentacao/Prototipos-telas/emitindo-relatorio-os-cadastrada.PNG)
 
 ### Arquivo .jar do projeto para costrui um EXE para Windows e para Outras Plataformas, Multiplataforme
  * [.jar](https://github.com/Samuel-Amaro/Sistema-Desktop---InfoX/tree/master/ProjetoSistemaAssistenciaInformatica/dist)
