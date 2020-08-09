@@ -71,5 +71,6 @@ Que pode acessar o sistema Desktop, e só o ADM ou so os funcionarios(Que vão p
   * Somente usuario Logado e com perfil ADMIN, tem acesso a essa funcionalidade, de emitir um relatorio dinamico diretamente do banco de dados, de quantas ordem serviços ou       orçamentos ja emitiu, durante a existencia do sistema, no final pode se imprimir em um papel A4.
 
 
+![Tela Relatorios](https://github.com/Samuel-Amaro/Sistema-Desktop---InfoX/blob/master/previews-gif-software/preview-imprimindo-relatorios-servicos.gif)
 ### Arquivo .jar do projeto para costrui um EXE para Windows e para Outras Plataformas, Multiplataforme
  * [.jar](https://github.com/Samuel-Amaro/Sistema-Desktop---InfoX/tree/master/ProjetoSistemaAssistenciaInformatica/dist)
