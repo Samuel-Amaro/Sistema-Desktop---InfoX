@@ -19,8 +19,8 @@ public class ModuloConexao {
         //variaveis para armazenar informações referentes ao banco de dados
         //caminho ate o banco de dados
         String url = "jdbc:mysql://localhost:3306/db_info?useTimezone=true&serverTimezone=UTC";
-        String usuario = "root";
-        String senha = "[96284269]Ai";
+        String usuario = "user"; //root
+        String senha = "senha"; //senha do banco
         //estabelecendo a conexão com o banco
         try {
             Class.forName(driver);
